@@ -1,1 +1,1 @@
-github: https://github.com/gillgonzales/cstsi_dfe2_202502_js_react
+github: https://github.com/gillgonzales/cstsi_dbe2_202601_php_laravel
