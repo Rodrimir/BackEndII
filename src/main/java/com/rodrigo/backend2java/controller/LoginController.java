@@ -25,10 +25,10 @@ public class LoginController {
         }
     }
 
-    @GetMapping("/login/{id}/{senha}")
-    public ResponseEntity<?> login(@PathVariable String id, @PathVariable String senha) {
+    @GetMapping("/login/{login}/{senha}")
+    public ResponseEntity<?> login(@PathVariable String login, @PathVariable String senha) {
         LoginResponse user = loginService.buscarUsuario(
-                Integer.parseInt(id),
+                Integer.parseInt(login),
                 senha
         );
 
