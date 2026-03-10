@@ -37,3 +37,126 @@ CREATE TABLE tarefas (
     concluida BOOLEAN DEFAULT FALSE,
     duracao INTERVAL GENERATED ALWAYS AS (fim - inicio) STORED
 );
+
+## 🚀 Como Usar Docker Compose
+
+### Pré-requisitos
+
+- Docker instalado
+- Docker Compose instalado
+- Arquivo `.env` na raiz do projeto com as variáveis:
+  ```env
+  APP_PORT=8083
+  DB_NAME=seu_banco
+  DB_USER=seu_usuario
+  DB_PASS=sua_senha
+  FORWARD_DB_PORT=3306
+  FORWARD_MYADMIN_PORT=8093
+  ```
+
+### Iniciar os Containers
+
+```bash
+# Iniciar em modo foreground (vê os logs)
+docker compose up
+
+# Iniciar em background (modo daemon)
+docker compose up -d
+```
+
+### Parar os Containers
+
+```bash
+docker compose down
+```
+
+### Parar e Remover Volumes
+
+```bash
+docker compose down -v
+```
+
+### Visualizar Logs
+
+```bash
+# Todos os serviços
+docker compose logs -f
+
+# Serviço específico
+docker compose logs -f app_php
+docker compose logs -f mariadb
+```
+
+### Executar Comandos no Container
+
+```bash
+# Acessar shell do PHP
+docker compose exec app_php bash
+
+# Executar comando específico
+docker compose exec app_php php -v
+```
+
+---
+
+## 🏗️ Arquitetura MVC
+
+O projeto segue o padrão **Model-View-Controller**, onde:
+
+### **Model** (Modelos de Dados)
+- Responsável pela lógica de dados e acesso ao banco
+- Localização: `src/app/models/`
+- Exemplo: `Produto.php` - Representa a entidade Produto
+
+### **View** (Apresentação)
+- Responsável pela exibição de dados ao usuário
+- Localização: `src/app/views/`
+- Exemplo: Templates HTML em `src/app/views/templates/produtos/`
+- Classe de suporte: `src/app/views/View.php`
+
+### **Controller** (Intermediário)
+- Responsável por processar requisições e orquestrar Model e View
+- Localização: `src/app/controllers/`
+- Exemplo: `ProdutoController.php` - Controla operações de Produtos
+- Classe base: `Controller.php`
+
+### Fluxo de Requisição
+
+```
+Requisição HTTP → Router → Controller → Model (BD) → View → Resposta
+```
+
+---
+
+## 📁 Estrutura do Projeto
+
+meu-projeto-spring/
+├── build.gradle                       # O seu 'composer.json' (gerencia dependências)
+├── compose.yaml                       # Continua na raiz
+├── Dockerfile                         # Continua na raiz
+└── src/
+    └── main/
+        ├── java/com/rodrigo/          # O núcleo da sua aplicação (seu antigo src/app/)
+        │   ├── Application.java       # Substitui o public/index.php e o core/App.php
+        │   │
+        │   ├── controller/            # Equivalente ao src/app/controllers/
+        │   │   └── ProdutoController.java
+        │   │
+        │   ├── model/                 # Equivalente ao src/app/models/
+        │   │   └── Produto.java
+        │   │
+        │   ├── repository/            # O Spring faz o acesso ao banco aqui. 
+        │   │   └── ProdutoRepository.java
+        │   │
+        │   └── service/               # Onde as regras de negócio vivem.
+        │       └── ProdutoService.java
+        │
+        └── resources/                 
+            ├── application.properties # Substitui o config/, database/Connection.php e Routes
+            │
+            ├── static/                # Arquivos públicos: CSS, JS, Imagens
+            │
+            └── templates/             # Equivalente ao src/app/views/ e public/templates/
+                └── produtos/
+                    ├── create.html    # Suas views renderizadas pelo Thymeleaf
+                    └── list.html

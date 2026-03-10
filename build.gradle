@@ -14,6 +14,14 @@ java {
 	}
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDirs += ['src/main/java/com/rodrigo/backend2java/resources']
+        }
+    }
+}
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
@@ -30,7 +38,7 @@ ext {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-restclient'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'

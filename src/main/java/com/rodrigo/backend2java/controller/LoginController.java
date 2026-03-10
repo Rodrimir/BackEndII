@@ -1,44 +1,31 @@
 package com.rodrigo.backend2java.controller;
-
-@RestController
-@RequestMapping("/api")
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import com.rodrigo.backend2java.service.LoginService;
+import com.rodrigo.backend2java.model.LoginResponse;
+import com.rodrigo.backend2java.model.AuthRequest;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+@Controller
 public class LoginController {
-
     @Autowired
-    private LoginRepository loginRepository;
-
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody AuthRequest authRequest) {
-        LoginResponse user = LoginService.login(
-            authRequest.getId(),
-            authRequest.getSenha()
-        );
-
-        if (user != null) {
-            return ResponseEntity.ok(
-                    new ApiResponse<>(true, "Usuário autenticado com sucesso", user)
-            );
-        } 
-        else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ApiResponse<>(false, "Usuário ou senha inválidos", null));
-        }
+    private LoginService loginService;
+    @GetMapping("/login")
+    public String exibirTelaLogin(Model model) {
+        model.addAttribute("authRequest", new AuthRequest());
+        return "login"; 
     }
-
-    @GetMapping("/login/{login}/{senha}")
-    public ResponseEntity<?> login(@PathVariable String login, @PathVariable String senha) {
-        LoginResponse user = loginService.buscarUsuario(
-                Integer.parseInt(login),
-                senha
-        );
-
+    @PostMapping("/login")
+    public String processarLogin(@ModelAttribute AuthRequest authRequest, Model model) { 
+        LoginResponse user = loginService.login(authRequest.getId(), authRequest.getSenha());
         if (user != null) {
-            return ResponseEntity.ok(
-                    new ApiResponse<>(true, "Usuário autenticado com sucesso", user)
-            );
+            model.addAttribute(user.getSenUsuar());
+            return "login"; 
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ApiResponse<>(false, "Usuário ou senha inválidos", null));
+            model.addAttribute("erro!");
+            return "login"; 
         }
     }
 }

@@ -1,9 +1,8 @@
+package com.rodrigo.backend2java.service;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.fhi.stock_ws.model.response.LoginResponse;
-import com.fhi.stock_ws.repository.LoginRepository;
+import com.rodrigo.backend2java.repository.LoginRepository;
+import com.rodrigo.backend2java.model.LoginResponse;
 import org.springframework.stereotype.Service;
-package com.fhi.stock_ws.service;
-
 @Service
 public class LoginService {
     @Autowired
