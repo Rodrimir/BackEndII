@@ -3,7 +3,7 @@ services:
     image: postgres:16-alpine
     container_name: "postgres_db"
     environment:
-      POSTGRES_DB: "indicadores_db"
+      POSTGRES_DB: "backend_db"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "123"
     ports:

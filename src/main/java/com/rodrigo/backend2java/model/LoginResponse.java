@@ -1,19 +1,24 @@
 package com.rodrigo.backend2java.model;
-import lombok.NoArgsConstructor;
-import java.sql.SQLException;
+
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 @Getter
 @Setter
 @NoArgsConstructor
 public class LoginResponse {
-    private int senCodig;
-    private String senSenha;
+
+    private int id;
+    private String senha;
+
     public static LoginResponse fromResultSet(ResultSet rs) throws SQLException {
         LoginResponse resp = new LoginResponse();
-        resp.setSenCodig(rs.getInt("SEN_CODIG"));
-        resp.setSenSenha(rs.getString("SEN_SENHA"));
+        resp.setId(rs.getInt("id"));
+        resp.setSenha(rs.getString("senha"));
         return resp;
     }
 }

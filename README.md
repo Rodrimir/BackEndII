@@ -95,36 +95,13 @@ docker compose exec app_php bash
 
 # Executar comando específico
 docker compose exec app_php php -v
+
+# Kill docker services
+
+docker compose down -v
 ```
 
----
 
-## 🏗️ Arquitetura MVC
-
-O projeto segue o padrão **Model-View-Controller**, onde:
-
-### **Model** (Modelos de Dados)
-- Responsável pela lógica de dados e acesso ao banco
-- Localização: `src/app/models/`
-- Exemplo: `Produto.php` - Representa a entidade Produto
-
-### **View** (Apresentação)
-- Responsável pela exibição de dados ao usuário
-- Localização: `src/app/views/`
-- Exemplo: Templates HTML em `src/app/views/templates/produtos/`
-- Classe de suporte: `src/app/views/View.php`
-
-### **Controller** (Intermediário)
-- Responsável por processar requisições e orquestrar Model e View
-- Localização: `src/app/controllers/`
-- Exemplo: `ProdutoController.php` - Controla operações de Produtos
-- Classe base: `Controller.php`
-
-### Fluxo de Requisição
-
-```
-Requisição HTTP → Router → Controller → Model (BD) → View → Resposta
-```
 
 ---
 
