@@ -21,9 +21,9 @@
         <div th:if="${mensagem}" class="sucesso" th:text="${mensagem}"></div>
         <form th:action="@{/login}" th:object="${authRequest}" method="post">        
             <label>Código do Usuário:</label>
-            <input type="password" th:field="*{id}" required placeholder="Ex: 123" />       
+            <input type="number" th:field="*{id}" required placeholder="123" />          
             <label>Senha:</label>
-            <input type="password" th:field="*{senha}" required placeholder="Sua senha secreta" />      
+            <input type="password" th:field="*{senha}" required placeholder="123" />      
             <button type="submit">Entrar</button>
         </form>
         <a th:href="@{/usuarios/novo}" class="link-cadastro">Não tem uma conta? Cadastre-se</a>
