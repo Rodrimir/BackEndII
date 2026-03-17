@@ -157,6 +157,3 @@ meu-projeto-spring/
             ├── static/                # Arquivos públicos: CSS, JS, Imagens
             │
             └── templates/             # Equivalente ao src/app/views/ e public/templates/
-                └── produtos/
-                    ├── create.html    # Suas views renderizadas pelo Thymeleaf
-                    └── list.html
