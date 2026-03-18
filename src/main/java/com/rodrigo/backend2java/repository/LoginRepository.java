@@ -17,12 +17,12 @@ public class LoginRepository {
     @Autowired
     private DataSource dataSource;
 
-    public LoginResponse buscarUsuario(int login, String senha) {
+    public LoginResponse buscarUsuario(int id, String senha) {
         String sql = "SELECT id, senha FROM usuarios WHERE id = ?";
 
         try (Connection pool = dataSource.getConnection(); PreparedStatement stmt = pool.prepareStatement(sql)) {
 
-            stmt.setInt(1, login);
+            stmt.setInt(1, id);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {

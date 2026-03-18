@@ -1,10 +1,11 @@
 package com.rodrigo.backend2java.service;
 
-import com.rodrigo.backend2java.model.Usuario;
-import com.rodrigo.backend2java.repository.UsuarioRepository;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.rodrigo.backend2java.model.UsuarioModel;
+import com.rodrigo.backend2java.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
@@ -15,19 +16,19 @@ public class UsuarioService {
         this.repository = repository;
     }
 
-    public List<Usuario> listarTodos() {
+    public List<UsuarioModel> listarTodos() {
         return repository.findAll();
     }
 
-    public Usuario buscarPorId(Long id) {
-        return repository.findById(id).orElse(null);
+    public UsuarioModel buscarPorId(Integer id) {
+        return repository.findById(id);
     }
 
-    public Usuario salvar(Usuario usuario) {
+    public UsuarioModel salvar(UsuarioModel usuario) {
         return repository.save(usuario);
     }
 
-    public void deletar(Long id) {
+    public void deletar(Integer id) {
         repository.deleteById(id);
     }
 }
