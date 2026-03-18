@@ -24,12 +24,14 @@ public class UsuarioController {
     @GetMapping
     public String listarUsuarios(Model model) {
         model.addAttribute("usuarios", service.listarTodos());
+        System.out.println("Listando todos os usuários" + service.listarTodos().size() + " usuários encontrados");
         return "usuarios/lista";
     }
 
     @GetMapping("/novo")
     public String novoUsuarioForm(Model model) {
         model.addAttribute("usuario", new UsuarioModel());
+        System.out.println("Exibindo formulário para novo usuário");
         return "usuarios/formulario";
     }
 
@@ -40,18 +42,21 @@ public class UsuarioController {
             return "redirect:/usuarios";
         }
         model.addAttribute("usuario", usuario);
+        System.out.println("Editando usuário com ID: " + id);
         return "usuarios/formulario";
     }
 
     @PostMapping("/salvar")
     public String salvarUsuario(@ModelAttribute("usuario") UsuarioModel usuario) {
         service.salvar(usuario);
+        System.out.println("Salvando usuário: " + usuario.getNome() + " com nickname: " + usuario.getNickname());
         return "redirect:/usuarios";
     }
 
     @GetMapping("/deletar/{id}")
     public String deletarUsuario(@PathVariable Integer id) {
         service.deletar(id);
+        System.out.println("Deletando usuário com ID: " + id);
         return "redirect:/usuarios";
     }
 }

@@ -20,6 +20,7 @@ public class LoginController {
     @GetMapping("/login")
     public String exibirTelaLogin(Model model) {
         model.addAttribute("authRequest", new AuthRequest());
+        System.out.println("Exibindo tela de login");
         return "login";
     }
 
@@ -27,7 +28,8 @@ public class LoginController {
     public String processarLogin(@ModelAttribute AuthRequest authRequest, Model model) {
         LoginResponse user = loginService.login(authRequest.getId(), authRequest.getSenha());
         if (user != null) {
-            model.addAttribute("mensagem", "Sucesso");
+            model.addAttribute("mensagem", "Sucesso no login");
+            System.out.println("Login bem-sucedido para usuário ID: " + authRequest.getId());
             return "login";
         } else {
             model.addAttribute("erro", "Erro de login");

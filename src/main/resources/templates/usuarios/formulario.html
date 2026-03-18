@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Cadastro de Usuário</title>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; margin-top: 100px; background-color: #f4f4f4; }
+        body { font-family: sans-serif; display: flex; justify-content: center; margin-top: 100px; background-color: #000000; }
         .login-box { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 300px; }
         input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
         button { width: 100%; padding: 10px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; }
@@ -20,7 +20,7 @@
             
             <label>Nome Completo:</label>
             <input type="text" th:field="*{nome}" required placeholder="Ex: Rodrigo" />       
-            
+             
             <label>Nickname:</label>
             <input type="text" th:field="*{nickname}" required placeholder="Ex: Rodrimir" />      
             

@@ -10,6 +10,25 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d backend_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: "backend_app"
+    ports:
+      - "8082:8082" # Porta que você definiu no EXPOSE do Dockerfile
+    environment:
+      # MUITO IMPORTANTE: O host do banco no Docker não é 'localhost', é o nome do serviço 'db'
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/backend_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=123
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
   postgres_data:
