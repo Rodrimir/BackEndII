@@ -11,34 +11,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rodrigo.backend2java.model.Usuario;
-import com.rodrigo.backend2java.repository.UsuarioRepository;
+import com.rodrigo.backend2java.model.Rotina;
+import com.rodrigo.backend2java.repository.RotinaRepository;
 
 @RestController
-@RequestMapping("/api/usuarios")
-public class UsuarioController {
+@RequestMapping("/api/rotinas")
+public class RotinaController {
 
-    private final UsuarioRepository repository;
+    private final RotinaRepository repository;
 
-    public UsuarioController(UsuarioRepository repository) {
+    public RotinaController(RotinaRepository repository) {
         this.repository = repository;
     }
 
     @GetMapping("/listar")
-    public List<Usuario> listar() {
+    public List<Rotina> listar() {
         return repository.listarTodos();
     }
 
     @PostMapping("/salvar")
-    public String salvar(@RequestBody Usuario usuario) {
-        repository.salvar(usuario);
+    public String salvar(@RequestBody Rotina rotina) {
+        repository.salvar(rotina);
         return "sucesso!";
     }
 
     @PutMapping("/atualizar")
-    public String atualizar(@RequestParam Long id, @RequestBody Usuario usuario) {
-        usuario.setId(id);
-        repository.atualizar(usuario);
+    public String atualizar(@RequestParam Long id, @RequestBody Rotina rotina) {
+        rotina.setId(id);
+        repository.atualizar(rotina);
         return "sucesso!";
     }
 
