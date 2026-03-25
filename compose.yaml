@@ -20,15 +20,26 @@ services:
     build: .
     container_name: "backend_app"
     ports:
-      - "8082:8082" # Porta que você definiu no EXPOSE do Dockerfile
+      - "8082:8082"
     environment:
-      # MUITO IMPORTANTE: O host do banco no Docker não é 'localhost', é o nome do serviço 'db'
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/backend_db
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=123
     depends_on:
       db:
         condition: service_healthy
+
+  # --- NOVO SERVIÇO: Interface Web do Banco ---
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: "pgadmin4_web"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - "8093:80" # Porta que você usará no navegador
+    depends_on:
+      - db
 
 volumes:
   postgres_data:
