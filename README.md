@@ -1,6 +1,8 @@
 ## Projeto Tempo Claro
 
-ref prof:
+**Base paral localização de detalhes no projeto usando EXTENSION Inline Bookmarks, para ver notas no projeto com tag** @audit 
+
+**ref prof:**
 github: https://github.com/gillgonzales/cstsi_dbe2_202601_php_laravel
 
 ## **Banco de dados** atualizado para atender ao TCC
