@@ -1,6 +1,5 @@
 package com.rodrigo.backend2java.model;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
@@ -12,29 +11,24 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table("usuarios")
+@Table("avatares_catalogo")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Usuario {
+public class AvatarCatalogo {
 
     @Id
     private UUID id;
     
     private String nome;
-    
-    private String email;
 
-    @Column("senha_hash")
-    private String senhaHash;
+    @Column("nivel_minimo_xp")
+    private Integer nivelMinimoXp;
 
-    @Column("streak_global")
-    private Integer streakGlobal;
+    @Column("asset_visual_url")
+    private String assetVisualUrl;
 
-    @Column("xp_total")
-    private Integer xpTotal;
-
-    @Column("data_criacao")
-    private LocalDateTime dataCriacao;
+    @Column("ordem_evolucao")
+    private Integer ordemEvolucao;
 }

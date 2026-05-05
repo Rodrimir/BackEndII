@@ -168,9 +168,10 @@ docker compose down -v
 
 ## Estrutura do Projeto
 
+BackEndII
 └── src/
     ├── main/
-    │   ├── java/com/eduardo/tempoclaro/   # Raiz da aplicação
+    │   ├── java/com/rodrigo/backend2java/   # Raiz da aplicação
     │   │   ├── TempoClaroApplication.java # Ponto de partida (Spring Boot Main)
     │   │   │
     │   │   ├── config/                    # Configurações gerais do projeto
@@ -184,18 +185,6 @@ docker compose down -v
     │   │   │   ├── RegistroController.java# Rota para o botão rápido de "Feito"
     │   │   │   └── AvatarController.java  # Rotas para listar a galeria e evolução gráfica
     │   │   │
-    │   │   ├── dto/                       # Objetos de tráfego de dados (JSON)
-    │   │   │   ├── request/               # O que o Flutter ENVIA para a API
-    │   │   │   │   ├── LoginRequestDTO.java
-    │   │   │   │   ├── CadastroUsuarioDTO.java
-    │   │   │   │   ├── OnboardingRequestDTO.java
-    │   │   │   │   └── NovoHabitoDTO.java
-    │   │   │   └── response/              # O que a API DEVOLVE para o Flutter
-    │   │   │       ├── TokenResponseDTO.java
-    │   │   │       ├── PerfilUsuarioDTO.java
-    │   │   │       ├── HabitoDetalhadoDTO.java
-    │   │   │       └── AvatarGaleriaDTO.java
-    │   │   │
     │   │   ├── exception/                 # Tratamento global de erros para evitar tela branca no Flutter
     │   │   │   ├── GlobalExceptionHandler.java # Captura e formata erros em JSON (ex: Erro 404, 400)
     │   │   │   └── RecursoNaoEncontradoException.java
@@ -207,7 +196,19 @@ docker compose down -v
     │   │   │   ├── MicroHabito.java
     │   │   │   ├── RegistroDiario.java
     │   │   │   ├── AvatarCatalogo.java
-    │   │   │   └── Notificacao.java
+    │   │   │   ├── Notificacao.java
+        │   │   ├── Notificacao.java
+    │   │   │   └── dto/                       # Objetos de tráfego de dados (JSON)
+    │   │   │       ├── request/               # O que o Flutter ENVIA para a API
+    │   │   │       │   ├── LoginRequestDTO.java
+    │   │   │       │   ├── CadastroUsuarioDTO.java
+    │   │   │       │   ├── OnboardingRequestDTO.java
+    │   │   │       │   └── NovoHabitoDTO.java
+    │   │   │       └── response/              # O que a API DEVOLVE para o Flutter
+    │   │   │           ├── TokenResponseDTO.java
+    │   │   │           ├── PerfilUsuarioDTO.java
+    │   │   │           ├── HabitoDetalhadoDTO.java
+    │   │   │           └── AvatarGaleriaDTO.java
     │   │   │
     │   │   ├── repository/                # Interfaces que conversam com o PostgreSQL
     │   │   │   ├── UsuarioRepository.java

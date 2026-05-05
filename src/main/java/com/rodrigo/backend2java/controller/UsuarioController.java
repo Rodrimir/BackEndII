@@ -1,50 +1,34 @@
 package com.rodrigo.backend2java.controller;
 
-import java.util.List;
+import java.util.UUID;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rodrigo.backend2java.model.Usuario;
-import com.rodrigo.backend2java.repository.UsuarioRepository;
+import com.rodrigo.backend2java.model.dto.request.OnboardingRequestDTO;
+import com.rodrigo.backend2java.model.dto.response.PerfilUsuarioDTO;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/usuarios")
+@RequiredArgsConstructor
 public class UsuarioController {
 
-    private final UsuarioRepository repository;
-
-    public UsuarioController(UsuarioRepository repository) {
-        this.repository = repository;
+    @GetMapping("/{id}")
+    public ResponseEntity<PerfilUsuarioDTO> buscarPerfil(@PathVariable UUID id) {
+        return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/listar")
-    public List<Usuario> listar() {
-        return repository.listarTodos();
-    }
-
-    @PostMapping("/salvar")
-    public String salvar(@RequestBody Usuario usuario) {
-        repository.salvar(usuario);
-        return "sucesso!";
-    }
-
-    @PutMapping("/atualizar")
-    public String atualizar(@RequestParam Long id, @RequestBody Usuario usuario) {
-        usuario.setId(id);
-        repository.atualizar(usuario);
-        return "sucesso!";
-    }
-
-    @DeleteMapping("/excluir")
-    public String excluir(@RequestParam Long id) {
-        repository.excluir(id);
-        return "sucesso!";
+    @PostMapping("/{id}/onboarding")
+    public ResponseEntity<Void> salvarOnboarding(
+            @PathVariable UUID id, 
+            @RequestBody OnboardingRequestDTO request) {
+        return ResponseEntity.ok().build();
     }
 }

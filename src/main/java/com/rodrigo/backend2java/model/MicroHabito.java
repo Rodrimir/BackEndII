@@ -1,6 +1,5 @@
 package com.rodrigo.backend2java.model;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
@@ -12,29 +11,24 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table("usuarios")
+@Table("micro_habitos")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Usuario {
+public class MicroHabito {
 
     @Id
     private UUID id;
     
-    private String nome;
+    // Não precisamos mapear o ID do Habito aqui, o Spring JDBC faz isso pela classe pai
     
-    private String email;
+    @Column("ordem_fase")
+    private Integer ordemFase;
 
-    @Column("senha_hash")
-    private String senhaHash;
+    @Column("meta_pratica")
+    private String metaPratica;
 
-    @Column("streak_global")
-    private Integer streakGlobal;
-
-    @Column("xp_total")
-    private Integer xpTotal;
-
-    @Column("data_criacao")
-    private LocalDateTime dataCriacao;
+    @Column("meta_emocional")
+    private String metaEmocional;
 }

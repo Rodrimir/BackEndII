@@ -12,29 +12,25 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table("usuarios")
+@Table("perfil_onboarding")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Usuario {
+public class PerfilOnboarding {
 
     @Id
     private UUID id;
-    
-    private String nome;
-    
-    private String email;
 
-    @Column("senha_hash")
-    private String senhaHash;
+    @Column("usuario_id")
+    private UUID usuarioId;
 
-    @Column("streak_global")
-    private Integer streakGlobal;
+    @Column("principais_atritos")
+    private String principaisAtritos;
 
-    @Column("xp_total")
-    private Integer xpTotal;
+    @Column("regra_inegociavel_geral")
+    private String regraInegociavelGeral;
 
-    @Column("data_criacao")
-    private LocalDateTime dataCriacao;
+    @Column("data_resposta")
+    private LocalDateTime dataResposta;
 }

@@ -12,29 +12,25 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table("usuarios")
+@Table("notificacoes")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Usuario {
+public class Notificacao {
 
     @Id
     private UUID id;
-    
-    private String nome;
-    
-    private String email;
 
-    @Column("senha_hash")
-    private String senhaHash;
+    @Column("usuario_id")
+    private UUID usuarioId;
 
-    @Column("streak_global")
-    private Integer streakGlobal;
+    private String tipo;
 
-    @Column("xp_total")
-    private Integer xpTotal;
+    private String mensagem;
 
-    @Column("data_criacao")
-    private LocalDateTime dataCriacao;
+    @Column("data_hora_envio")
+    private LocalDateTime dataHoraEnvio;
+
+    private Boolean lida;
 }
