@@ -14,7 +14,7 @@ import com.rodrigo.backend2java.model.dto.response.AvatarGaleriaDTO;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/avatares")
+@RequestMapping("/avatares")
 @RequiredArgsConstructor
 public class AvatarController {
 

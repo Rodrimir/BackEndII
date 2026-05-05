@@ -27,13 +27,13 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @GetMapping("/busca/{id}")
-    public ResponseEntity<PerfilUsuarioDTO> buscarPerfil(@PathVariable UUID id) {
+    public ResponseEntity<PerfilUsuarioDTO> buscarPerfil(@PathVariable("id") UUID id) {
         return ResponseEntity.ok(usuarioService.buscarPerfilCompleto(id));
     }
 
     @PostMapping("/salvar/onboarding/{id}")
     public ResponseEntity<Void> salvarOnboarding(
-            @PathVariable UUID id, 
+            @PathVariable("id") UUID id, 
             @RequestBody OnboardingRequestDTO request) {
         usuarioService.registrarOnboarding(id, request);
         return ResponseEntity.ok().build();
@@ -41,20 +41,20 @@ public class UsuarioController {
 
     @PutMapping("/atualizar/{id}")
     public ResponseEntity<PerfilUsuarioDTO> atualizarUsuario(
-            @PathVariable UUID id,
+            @PathVariable("id") UUID id,
             @RequestBody CadastroUsuarioDTO request) {
         return ResponseEntity.ok(usuarioService.atualizarUsuario(id, request));
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<Void> deletarUsuario(@PathVariable UUID id) {
+    public ResponseEntity<Void> deletarUsuario(@PathVariable("id") UUID id) {
         usuarioService.deletarUsuario(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/atualizar/onboarding/{id}")
     public ResponseEntity<Void> atualizarOnboarding(
-            @PathVariable UUID id,
+            @PathVariable("id") UUID id,
             @RequestBody OnboardingRequestDTO request) {
         usuarioService.atualizarOnboarding(id, request);
         return ResponseEntity.ok().build();

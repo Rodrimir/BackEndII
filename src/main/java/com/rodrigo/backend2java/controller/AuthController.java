@@ -15,7 +15,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -29,4 +29,5 @@ public class AuthController {
     public ResponseEntity<Void> cadastrar(@Valid @RequestBody CadastroUsuarioDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
 }
