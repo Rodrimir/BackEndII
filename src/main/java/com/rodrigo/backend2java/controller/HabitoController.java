@@ -5,15 +5,18 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rodrigo.backend2java.model.dto.request.NovoHabitoDTO;
 import com.rodrigo.backend2java.model.dto.response.HabitoDetalhadoDTO;
+import com.rodrigo.backend2java.service.HabitoService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,20 +26,44 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class HabitoController {
 
+    private final HabitoService habitoService;
+
     @PostMapping("/usuario/{usuarioId}")
     public ResponseEntity<HabitoDetalhadoDTO> criarHabito(
             @PathVariable UUID usuarioId, 
             @Valid @RequestBody NovoHabitoDTO request) {
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        
+        HabitoDetalhadoDTO novoHabito = habitoService.criarHabito(usuarioId, request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoHabito);
     }
 
     @GetMapping("/usuario/{usuarioId}")
     public ResponseEntity<List<HabitoDetalhadoDTO>> listarHabitosDoUsuario(@PathVariable UUID usuarioId) {
-        return ResponseEntity.ok().build();
+        
+        List<HabitoDetalhadoDTO> habitos = habitoService.listarPorUsuario(usuarioId);
+        return ResponseEntity.ok(habitos);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<HabitoDetalhadoDTO> detalharHabito(@PathVariable UUID id) {
-        return ResponseEntity.ok().build();
+        
+        HabitoDetalhadoDTO habito = habitoService.buscarDetalhadoPorId(id);
+        return ResponseEntity.ok(habito);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<HabitoDetalhadoDTO> atualizarHabito(
+            @PathVariable UUID id, 
+            @Valid @RequestBody NovoHabitoDTO request) {
+            
+        HabitoDetalhadoDTO habitoAtualizado = habitoService.atualizarHabito(id, request);
+        return ResponseEntity.ok(habitoAtualizado);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarHabito(@PathVariable UUID id) {
+        
+        habitoService.deletarHabito(id);
+        return ResponseEntity.noContent().build();
     }
 }

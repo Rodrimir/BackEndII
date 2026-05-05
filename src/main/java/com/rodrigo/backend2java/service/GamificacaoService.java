@@ -80,4 +80,23 @@ public class GamificacaoService {
             );
         }).collect(Collectors.toList());
     }
+
+    @Transactional
+    public void desfazerExecucaoDiaria(UUID habitoId) {
+        LocalDate hoje = LocalDate.now();
+        RegistroDiario registro = registroRepository.buscarPorHabitoEData(habitoId, hoje)
+                .orElseThrow(() -> new RuntimeException("Registro não encontrado para hoje"));
+        
+        registroRepository.delete(registro);
+
+        Habito habito = habitoRepository.findById(habitoId).orElseThrow();
+        habito.setStreakAtual(Math.max(0, habito.getStreakAtual() - 1));
+        habito.setXpAcumulado(Math.max(0, habito.getXpAcumulado() - 10));
+        habitoRepository.save(habito);
+
+        Usuario usuario = usuarioRepository.findById(habito.getUsuarioId()).orElseThrow();
+        usuario.setXpTotal(Math.max(0, usuario.getXpTotal() - 10));
+        usuario.setStreakGlobal(Math.max(0, usuario.getStreakGlobal() - 1));
+        usuarioRepository.save(usuario);
+    }
 }

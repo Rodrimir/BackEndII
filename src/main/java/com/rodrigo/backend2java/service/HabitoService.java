@@ -69,5 +69,41 @@ public class HabitoService {
         return new HabitoDetalhadoDTO(habito.getId(), habito.getNome(), habito.getCategoria(),
                 habito.getStreakAtual(), habito.getXpAcumulado(), habito.getAtivo(),
                 habito.getDataCriacao(), dias, micros);
+
+    }
+
+
+    // @audit-info update
+    public HabitoDetalhadoDTO atualizarHabito(UUID id, NovoHabitoDTO request) {
+        Habito habito = habitoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Hábito não encontrado"));
+
+        habito.setNome(request.nome());
+        habito.setCategoria(request.categoria());
+
+        habito.getDiasSemana().clear();
+        request.diasSemana().forEach(dia -> 
+            habito.getDiasSemana().add(HabitoDiaSemana.builder().diaSemana(dia).build())
+        );
+
+        habito.getMicroHabitos().clear();
+        request.microHabitos().forEach(mh -> 
+            habito.getMicroHabitos().add(MicroHabito.builder()
+                    .ordemFase(mh.ordemFase())
+                    .metaPratica(mh.metaPratica())
+                    .metaEmocional(mh.metaEmocional())
+                    .build())
+        );
+
+        Habito atualizado = habitoRepository.save(habito);
+        return buscarDetalhadoPorId(atualizado.getId());
+    }
+
+    // @audit-info delete
+    public void deletarHabito(UUID id) {
+        if (!habitoRepository.existsById(id)) {
+            throw new RuntimeException("Hábito não encontrado");
+        }
+        habitoRepository.deleteById(id);
     }
 }
