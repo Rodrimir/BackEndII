@@ -22,13 +22,13 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/habitos")
+@RequestMapping("/habitos")
 @RequiredArgsConstructor
 public class HabitoController {
 
     private final HabitoService habitoService;
 
-    @PostMapping("/usuario/{usuarioId}")
+    @PostMapping("/criar/{usuarioId}")
     public ResponseEntity<HabitoDetalhadoDTO> criarHabito(
             @PathVariable UUID usuarioId, 
             @Valid @RequestBody NovoHabitoDTO request) {
@@ -37,21 +37,21 @@ public class HabitoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(novoHabito);
     }
 
-    @GetMapping("/usuario/{usuarioId}")
+    @GetMapping("/listar/{usuarioId}")
     public ResponseEntity<List<HabitoDetalhadoDTO>> listarHabitosDoUsuario(@PathVariable UUID usuarioId) {
         
         List<HabitoDetalhadoDTO> habitos = habitoService.listarPorUsuario(usuarioId);
         return ResponseEntity.ok(habitos);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/detalhar/{id}")
     public ResponseEntity<HabitoDetalhadoDTO> detalharHabito(@PathVariable UUID id) {
         
         HabitoDetalhadoDTO habito = habitoService.buscarDetalhadoPorId(id);
         return ResponseEntity.ok(habito);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/atualizar/{id}")
     public ResponseEntity<HabitoDetalhadoDTO> atualizarHabito(
             @PathVariable UUID id, 
             @Valid @RequestBody NovoHabitoDTO request) {
@@ -60,7 +60,7 @@ public class HabitoController {
         return ResponseEntity.ok(habitoAtualizado);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletar/{id}")
     public ResponseEntity<Void> deletarHabito(@PathVariable UUID id) {
         
         habitoService.deletarHabito(id);

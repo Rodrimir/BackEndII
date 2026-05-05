@@ -87,3 +87,55 @@ CREATE TABLE notificacoes (
     data_hora_envio TIMESTAMP NOT NULL,
     lida BOOLEAN DEFAULT FALSE
 );
+
+
+Dados para testes:
+
+-- 1. AVATARES DO CATÁLOGO (Inserir primeiro, pois não dependem de ninguém)
+INSERT INTO avatares_catalogo (id, nome, nivel_minimo_xp, asset_visual_url, ordem_evolucao) VALUES
+('d0eebc99-9c0b-4ef8-bb6d-6bb9bd380a41', 'Semente Focada', 0, '/assets/avatares/lvl1_semente.png', 1),
+('d0eebc99-9c0b-4ef8-bb6d-6bb9bd380a42', 'Broto Consistente', 100, '/assets/avatares/lvl2_broto.png', 2),
+('d0eebc99-9c0b-4ef8-bb6d-6bb9bd380a43', 'Árvore da Disciplina', 500, '/assets/avatares/lvl3_arvore.png', 3);
+
+-- 2. USUÁRIOS
+INSERT INTO usuarios (id, nome, email, senha_hash, streak_global, xp_total) VALUES
+('a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', 'Eduardo Teixeira', 'eduardo@tempoclaro.com', '$2a$10$xyz123fakehash', 5, 120),
+('a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12', 'Juliana Gil', 'juliana@tempoclaro.com', '$2a$10$abc987fakehash', 12, 350);
+
+-- 3. PERFIL ONBOARDING
+INSERT INTO perfil_onboarding (usuario_id, principais_atritos, regra_inegociavel_geral) VALUES
+('a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', 'Paralisia de decisão ao iniciar o TCC', 'Sempre abrir a IDE e o notion antes de pensar no que fazer.'),
+('a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12', 'Esquecimento de horários', 'Deixar a roupa do treino separada um dia antes.');
+
+-- 4. HÁBITOS
+INSERT INTO habitos (id, usuario_id, nome, categoria, streak_atual, xp_acumulado, ativo) VALUES
+('b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a21', 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', 'Desenvolver App Tempo Claro', 'Estudos', 3, 50, TRUE),
+('b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22', 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', 'Treino na Skyfit', 'Saúde', 5, 70, TRUE),
+('b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a23', 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12', 'Jogar Black Desert', 'Lazer', 12, 100, TRUE);
+
+-- 5. CRONOGRAMA DO HÁBITO (Dias da Semana: 1=Domingo, 7=Sábado)
+-- TCC: Segunda a Sexta (2, 3, 4, 5, 6)
+INSERT INTO habito_dias_semana (habito_id, dia_semana) VALUES
+('b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a21', 2), ('b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a21', 3), 
+('b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a21', 4), ('b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a21', 5), 
+('b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a21', 6),
+-- Treino: Seg, Qua, Sex (2, 4, 6)
+('b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22', 2), ('b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22', 4), 
+('b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22', 6);
+
+-- 6. MICRO-HÁBITOS
+INSERT INTO micro_habitos (habito_id, ordem_fase, meta_pratica, meta_emocional) VALUES
+('b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a21', 1, 'Ligar o PC e abrir o projeto', 'Focar apenas em ver a tela inicial'),
+('b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a21', 2, 'Escrever 1 linha de código ou documentação', 'Sentimento de destravamento'),
+('b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22', 1, 'Tomar pré-treino / preparar a garrafa d''água', 'Despertar o corpo'),
+('b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22', 2, 'Chegar na academia', 'O mais difícil já foi feito, agora é só executar');
+
+-- 7. REGISTROS DIÁRIOS (Testando histórico: Ontem e Hoje)
+INSERT INTO registros_diarios (habito_id, data_execucao, sentimento_pos_conclusao) VALUES
+('b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a21', CURRENT_DATE - INTERVAL '1 day', 'Rendeu mais do que eu esperava'),
+('b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22', CURRENT_DATE, 'Treino pesado, missão cumprida');
+
+-- 8. NOTIFICAÇÕES
+INSERT INTO notificacoes (usuario_id, tipo, mensagem, data_hora_envio, lida) VALUES
+('a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', 'Lembrete', 'Sua regra inegociável te espera: abra a IDE!', CURRENT_TIMESTAMP, FALSE),
+('a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12', 'Recompensa', 'Streak de 12 dias atingido! Parabéns!', CURRENT_TIMESTAMP, TRUE);

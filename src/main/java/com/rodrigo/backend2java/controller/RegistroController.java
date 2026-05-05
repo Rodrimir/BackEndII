@@ -14,19 +14,19 @@ import com.rodrigo.backend2java.service.GamificacaoService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/registros")
+@RequestMapping("/registros")
 @RequiredArgsConstructor
 public class RegistroController {
 
     private final GamificacaoService gamificacaoService;
 
-    @PostMapping("/habito/{habitoId}/feito")
+    @PostMapping("/feito/habito/{habitoId}")
     public ResponseEntity<Void> marcarHabitoComoFeito(@PathVariable UUID habitoId) {
         gamificacaoService.processarExecucaoDiaria(habitoId);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/habito/{habitoId}/desfazer")
+    @DeleteMapping("/desfazer/habito/{habitoId}")
     public ResponseEntity<Void> desfazerHabitoComoFeito(@PathVariable UUID habitoId) {
         gamificacaoService.desfazerExecucaoDiaria(habitoId);
         return ResponseEntity.noContent().build();

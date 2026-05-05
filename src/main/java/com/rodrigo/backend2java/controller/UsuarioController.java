@@ -20,18 +20,18 @@ import com.rodrigo.backend2java.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/usuarios")
 @RequiredArgsConstructor
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/busca/{id}")
     public ResponseEntity<PerfilUsuarioDTO> buscarPerfil(@PathVariable UUID id) {
         return ResponseEntity.ok(usuarioService.buscarPerfilCompleto(id));
     }
 
-    @PostMapping("/{id}/onboarding")
+    @PostMapping("/salvar/onboarding/{id}")
     public ResponseEntity<Void> salvarOnboarding(
             @PathVariable UUID id, 
             @RequestBody OnboardingRequestDTO request) {
@@ -39,20 +39,20 @@ public class UsuarioController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/atualizar/{id}")
     public ResponseEntity<PerfilUsuarioDTO> atualizarUsuario(
             @PathVariable UUID id,
             @RequestBody CadastroUsuarioDTO request) {
         return ResponseEntity.ok(usuarioService.atualizarUsuario(id, request));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletar/{id}")
     public ResponseEntity<Void> deletarUsuario(@PathVariable UUID id) {
         usuarioService.deletarUsuario(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}/onboarding")
+    @PutMapping("/atualizar/onboarding/{id}")
     public ResponseEntity<Void> atualizarOnboarding(
             @PathVariable UUID id,
             @RequestBody OnboardingRequestDTO request) {
